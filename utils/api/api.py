@@ -2,6 +2,7 @@ import functools
 import json
 import logging
 
+from django.db.models import F, Case, When, FloatField
 from django.http import HttpResponse, QueryDict
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -118,6 +119,10 @@ class APIView(View):
         :return:
         """
         try:
+            orderby = request.GET.get("orderby", None)
+        except ValueError:
+            orderby = None
+        try:
             limit = int(request.GET.get("limit", "10"))
         except ValueError:
             limit = 10
@@ -129,6 +134,8 @@ class APIView(View):
             offset = 0
         if offset < 0:
             offset = 0
+        if orderby:
+            query_set = query_set.order_by(orderby)
         results = query_set[offset:offset + limit]
         if object_serializer:
             count = query_set.count()
