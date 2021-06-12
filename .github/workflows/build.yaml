@@ -23,7 +23,7 @@ jobs:
       - name: Cache Docker Image Layer
         uses: action/cache@v2
         with:
-          path: /tmp/.build-cache
+          path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys:
             ${{ runner.os }}-buildx-
@@ -38,6 +38,6 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/online_judge_backend 
           cache-from: type=local,dest=/tmp/buildx-cahe
           cache-to: type=local,dest=/tmp/.buildx-cahe
-          
+
       - name: Verify
         run: echo ${{ steps.docker_build.outputs.digest }}
