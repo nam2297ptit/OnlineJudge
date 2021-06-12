@@ -36,7 +36,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/online_judge_backend 
-          cache-from: type=local,dest=/tmp/buildx-cahe
+          cache-from: type=local,dest=/tmp/.buildx-cahe
           cache-to: type=local,dest=/tmp/.buildx-cahe
 
       - name: Verify
