@@ -27,7 +27,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/OnlineJudgeBackend 
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/online_judge_backend 
 
       - name: Verify
         run: echo ${{ steps.docker_build.outputs.digest }}
